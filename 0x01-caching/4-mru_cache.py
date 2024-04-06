@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
-""" MRU caching
-"""
+""" MRU caching """
 
 
 BaseCaching = __import__('base_caching').BaseCaching
 
 
 class MRUCache(BaseCaching):
-    """ MRUCache
-    """
+    """ MRUCache """
     def __init__(self):
         super().__init__()
         self.history = []
 
     def put(self, key, item):
         """ mru """
-        if not (key is None or item is None):
+        if key is not None and item is not None:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS\
                  and key not in self.cache_data:
                 print(f'DISCARD: {self.history[-1]}')
@@ -28,7 +26,7 @@ class MRUCache(BaseCaching):
 
     def get(self, key):
         """ get key value """
-        if key is None or not (key in self.cache_data):
+        if key is None or key not in self.cache_data:
             return None
         else:
             del self.history[self.history.index(key)]
